@@ -40,7 +40,7 @@ mongoose.connection.on('error', function(err) {
 });
 
 
-const db = mongoose.connect(mongoDB, function(err) {
+var db = mongoose.connect(mongoDB, function(err) {
   if (err) {
       console.error('MongoDB connection error: ' + err);
       db = mongoose.connect("mongodb://127.0.0.1:27017/testdb", function(err) {
