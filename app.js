@@ -17,14 +17,48 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 const mongoDB = "mongodb://localhost:27017/testdb";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+mongoose.connection.once('open', function() {
+  logger.info('MongoDB event open');
+  logger.debug('MongoDB connected [%s]', url);
+
+  mongoose.connection.on('connected', function() {
+      logger.info('MongoDB event connected');
+  });
+
+  mongoose.connection.on('disconnected', function() {
+      logger.warn('MongoDB event disconnected');
+  });
+
+  mongoose.connection.on('reconnected', function() {
+      logger.info('MongoDB event reconnected');
+  });
+
+  mongoose.connection.on('error', function(err) {
+      logger.error('MongoDB event error: ' + err);
+  });
+
+  // return resolve();
+  return server.start();
+});
+
+const db = mongoose.connect(url, options, function(err) {
+  if (err) {
+      logger.error('MongoDB connection error: ' + err);
+      // return reject(err);
+      process.exit(1);
+  }
+});
+
+/*
 mongoose.Promise = Promise;
 //mongoose.set('strictQuery', false);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error"));
 db.once('open', () => {
   console.log(`Connected to MongoDB at ${mongoDB}.`)
-}); 
+}); */
 
 app.use(logger('dev'));
 app.use(express.json());
