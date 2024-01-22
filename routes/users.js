@@ -28,13 +28,13 @@ router.post('/login',
   (req, res, next) => {
     const username = req.body.email; 
     const password = req.body.password; 
-    console.log(`Attempting login as ${req.body.username}...`);
-    User.findOne({username: req.body.username}, (err, user) =>{
+    console.log(`Attempting login as ${username} with password ${password}...`);
+    User.findOne({username: username}, (err, user) =>{
     if(err) throw err;
     if(!user) {
       return res.status(403).json({message: "User does not exist."});
     } else {
-      bcrypt.compare(req.body.password, user.password, (err, isMatch) => {
+      bcrypt.compare(password, user.password, (err, isMatch) => {
         if(err) throw err;
         if(isMatch) {
           const jwtPayload = {
@@ -76,7 +76,7 @@ router.post('/register',
     } else if (!password) {
       return res.status(403).json({message: "Invalid password."});
     }
-    console.log(`Registering user with username: ${username}.`);
+    console.log(`Registering user with username: ${username} and password ${password}`);
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
       console.log('Registration failed.')
@@ -97,7 +97,7 @@ router.post('/register',
             if(err) throw err;
             User.create(
               {
-                username: req.body.username,
+                username: username,
                 password: hash
               },
               (err, ok) => {

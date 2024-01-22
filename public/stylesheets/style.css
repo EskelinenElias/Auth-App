@@ -8,13 +8,11 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #000000;
-
 }
 
 a {
   color: #FFF;
 }
-
 
 h1, h2, label, input {
   color: #FFFFFF; /* White text color */
