@@ -42,9 +42,12 @@ mongoose.connection.on('error', function(err) {
 
 const db = mongoose.connect(mongoDB, function(err) {
   if (err) {
-      logger.error('MongoDB connection error: ' + err);
-      // return reject(err);
-      process.exit(1);
+      console.error('MongoDB connection error: ' + err);
+      db = mongoose.connect("mongodb://127.0.0.1:27017/testdb", function(err) {
+        if (err) {
+          console.error('MongoDB connection error: ' + err);
+        }
+      });
   }
 });
 
