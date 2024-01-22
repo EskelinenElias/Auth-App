@@ -20,30 +20,27 @@ const mongoDB = "mongodb://localhost:27017/testdb";
 //mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 
 mongoose.connection.once('open', function() {
-  logger.info('MongoDB event open');
-  logger.debug('MongoDB connected [%s]', url);
-
-  mongoose.connection.on('connected', function() {
-      logger.info('MongoDB event connected');
-  });
-
-  mongoose.connection.on('disconnected', function() {
-      logger.warn('MongoDB event disconnected');
-  });
-
-  mongoose.connection.on('reconnected', function() {
-      logger.info('MongoDB event reconnected');
-  });
-
-  mongoose.connection.on('error', function(err) {
-      logger.error('MongoDB event error: ' + err);
-  });
-
-  // return resolve();
-  return server.start();
+  console.log('MongoDB connection is open.');
 });
 
-const db = mongoose.connect(url, options, function(err) {
+mongoose.connection.on('connected', function() {
+  console.log('Successfully connected to MongoDB.');
+});
+
+mongoose.connection.on('disconnected', function() {
+  console.log('Disconnected from MongoDB.');
+});
+
+mongoose.connection.on('reconnected', function() {
+  console.log('Reconnected to MongoDB.');
+});
+
+mongoose.connection.on('error', function(err) {
+  console.error('MongoDB error: ' + err);
+});
+
+
+const db = mongoose.connect(mongoDB, function(err) {
   if (err) {
       logger.error('MongoDB connection error: ' + err);
       // return reject(err);
