@@ -48,7 +48,7 @@ router.post('/login',
               expiresIn: 120
             },
             (err, token) => {
-              return res.status(200).redirect("/");
+              return res.status(200).json({ success:true, token });
             }
           );
         }
@@ -93,7 +93,7 @@ router.post('/register',
         return res.status(403).json({username: "Username already in use."});
       } else {
         bcrypt.genSalt(10, (err, salt) => {
-          bcrypt.hash(req.body.password, salt, (err, hash) => {
+          bcrypt.hash(password, salt, (err, hash) => {
             if(err) throw err;
             User.create(
               {
