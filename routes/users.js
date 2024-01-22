@@ -65,17 +65,21 @@ router.get('/register', (req, res, next) => {
 });
 
 // Register post method
-router.post('/register', 
-  body("username").isLength({min: 3}).trim().escape(),
-  body("password").isLength({min: 5}),
-  (req, res, next) => {
-    console.log(`Registering user with username: ${req.body.username}.`);
+router.post('/register', (req, res) => {
+    const username = req.body.email; 
+    const password = req.body.password; 
+    if (!username) {
+      return res.status(403).json({message: "Invalid username."});
+    } else if (!password) {
+      return res.status(403).json({message: "Invalid password."});
+    }
+    console.log(`Registering user with username: ${username}.`);
     const errors = validationResult(req);
     if(!errors.isEmpty()) {
       console.log('Registration failed.')
       return res.status(400).json({errors: errors.array()});
     }
-    User.findOne({username: req.body.username}, (err, user) => {
+    User.findOne({username: username}, (err, user) => {
       if(err) {
         console.log('Registration failed.')
         console.log(err);
@@ -95,7 +99,7 @@ router.post('/register',
               },
               (err, ok) => {
                 if(err) throw err;
-                return res.status(200).redirect("/users/login");
+                return res.status(200).redirect("/login.html");
               }
             );
           });

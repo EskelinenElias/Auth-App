@@ -11,22 +11,24 @@ router.get('/register.html', (req, res) => {
   res.render('register');
 });
 
+/*
 // Register route
 router.get('/register', (req, res) => {
   res.render('register');
 });
+*/
 
 // Secondary login route
 router.get('/login.html', (req, res) => {
   res.render('login');
 });
 
+/*
 // Login route
 router.get('/login', (req, res) => {
   res.render('login');
 });
-
-
+*/
 
 // Export router
 module.exports = router;
