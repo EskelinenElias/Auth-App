@@ -23,10 +23,11 @@ router.get('/login', (req, res, next) => {
 
 // Login post method
 router.post('/login', 
-  body("username").trim().escape(),
+  body("email").trim().escape(),
   body("password").escape(),
-
   (req, res, next) => {
+    const username = req.body.email; 
+    const password = req.body.password; 
     console.log(`Attempting login as ${req.body.username}...`);
     User.findOne({username: req.body.username}, (err, user) =>{
     if(err) throw err;
@@ -47,7 +48,6 @@ router.post('/login',
               expiresIn: 120
             },
             (err, token) => {
-              res.status(200).json({success: true, token, message: `Successfully logged in.`});
               return res.status(200).redirect("/");
             }
           );
@@ -65,7 +65,10 @@ router.get('/register', (req, res, next) => {
 });
 
 // Register post method
-router.post('/register', (req, res) => {
+router.post('/register',   
+  body("email").trim().escape(),
+  body("password").escape(),
+  (req, res, next) => {
     const username = req.body.email; 
     const password = req.body.password; 
     if (!username) {
