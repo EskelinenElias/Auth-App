@@ -66,9 +66,7 @@ router.get('/register', (req, res, next) => {
 });
 
 // Register post method
-router.post('/register',   
-  body("email").trim().escape(),
-  body("password").escape(),
+router.post('/register',
   (req, res, next) => {
     const username = req.body.email; 
     const password = req.body.password; 
@@ -104,6 +102,7 @@ router.post('/register',
               },
               (err, ok) => {
                 if(err) throw err;
+                console.log("Successfully created user.")
                 return res.status(200).redirect("/login.html");
               }
             );
