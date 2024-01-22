@@ -37,20 +37,21 @@ router.post('/login',
       bcrypt.compare(password, user.password, (err, isMatch) => {
         if(err) throw err;
         if(isMatch) {
+          console.log("Correct password!")
           const jwtPayload = {
             id: user._id,
             username: user.username
           }
-          jwt.sign(
-            jwtPayload,
-            process.env.SECRET,
-            {
-              expiresIn: 120
-            },
+          jwt.sign(jwtPayload, 'auth_token', {expiresIn: 120},
             (err, token) => {
-              return res.status(200).json({ success:true, token });
+              if (err) {
+                console.error(err);
+              }
+              return res.status(200).json({ success:true, token:token });
             }
           );
+        } else {
+          console.log("Incorrect password.")
         }
       })
     }
