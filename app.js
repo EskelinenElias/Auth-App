@@ -37,7 +37,7 @@ mongoose.connection.on('error', function(err) {
 });
 
 // Connect to mongoDB
-const address = "mongodb://127.0.0.1:27017/authdb"; // "mongodb://127.0.0.1:27017/testdb";
+const address = "mongodb://127.0.0.1:27017/testdb"; // "mongodb://127.0.0.1:27017/testdb";
 console.log(`Connecting to MongoDB at ${address}...`)
 const db = mongoose.connect(address, function(err) {
   if (err) {

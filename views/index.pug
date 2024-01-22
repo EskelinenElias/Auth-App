@@ -1,6 +1,10 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome, #{}
+  p(id="welcomeMessage")
+  p(id="genericMessage") Welcome to our website! Please register or login.
+
+  ul 
+    li: a(id="registerLink", href="/register.html") Register
+    li: a(id="loginLink", href="/login.html") Login
 

@@ -11,6 +11,11 @@ body {
 
 }
 
+a {
+  color: #FFF;
+}
+
+
 h1, h2, label, input {
   color: #FFFFFF; /* White text color */
 }
