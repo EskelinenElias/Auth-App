@@ -48,6 +48,7 @@ router.post('/login',
             },
             (err, token) => {
               res.status(200).json({success: true, token, message: `Successfully logged in.`});
+              return res.status(200).redirect("/");
             }
           );
         }
