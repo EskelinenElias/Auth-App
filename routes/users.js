@@ -23,8 +23,6 @@ router.get('/login', (req, res, next) => {
 
 // Login post method
 router.post('/login', 
-  body("email").trim().escape(),
-  body("password").escape(),
   (req, res, next) => {
     const username = req.body.email; 
     const password = req.body.password; 
