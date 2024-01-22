@@ -16,9 +16,6 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
-const mongoDB = "mongodb://localhost:27017/testdb";
-//mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
-
 mongoose.connection.once('open', function() {
   console.log('MongoDB connection is open.');
 });
@@ -39,15 +36,12 @@ mongoose.connection.on('error', function(err) {
   console.error('MongoDB error: ' + err);
 });
 
-
-var db = mongoose.connect(mongoDB, function(err) {
+// Connect to mongoDB
+const address = "mongodb://127.0.0.1:27017/testdb";
+console.log(`Connecting to MongoDB at ${address}...`)
+const db = mongoose.connect(address, function(err) {
   if (err) {
-      console.error('MongoDB connection error: ' + err);
-      db = mongoose.connect("mongodb://127.0.0.1:27017/testdb", function(err) {
-        if (err) {
-          console.error('MongoDB connection error: ' + err);
-        }
-      });
+      console.error("Connection failed.");
   }
 });
 
