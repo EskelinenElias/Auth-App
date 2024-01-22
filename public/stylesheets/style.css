@@ -1,7 +1,7 @@
 :root {
   --primary-color: #FFF !important; 
-  --primary-color-light: #FFF !important;  /* Light Teal */
-  --primary-color-dark: #333 !important;  /* Dark Teal */
+  --primary-color-light: #FFF !important;
+  --primary-color-dark: #333 !important;  
 }
 
 body {
@@ -31,11 +31,6 @@ h1, h2, label, input {
 }
 
 .label-focus {
-  color: #999 !important; /* Set label text color to white */
-  /*transition: color 0.3s ease !important; /* Add a smooth color transition */
-}
-
-.label-focus:focus {
   color: #FFF !important; /* Set label text color to white */
   /*transition: color 0.3s ease !important; /* Add a smooth color transition */
 }
@@ -47,9 +42,4 @@ h1, h2, label, input {
     border-bottom: 1px solid #FFF !important; /* White border for focused input fields */
     box-shadow: none !important; /* White text color for input fields */
     /*box-shadow: 0 0 5px rgba(255, 255, 255, 0.5) !important; /* White box shadow for focused input fields */
-}
-
-#loginForm input[id="email_input"]:focus + .label-focus[for='email_input']:focus,
-#loginForm input[id="password_input"]:focus + .label-focus[for='password_inpuit']:focus {
-  color: #FFF !important; 
 }
